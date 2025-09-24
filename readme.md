@@ -7,7 +7,7 @@ The frontend is built with **React** running on **Next.js**, while the backend i
 
 ---
 
-This is a **Notes Application** – think of it like a lightweight, self-hosted version of Google Keep or Evernote.  
+This is a **Notes Application**: think of it like a lightweight, self-hosted version of Google Keep or Evernote.  
 It's a complete web application that lets users create, view, and manage their notes seamlessly.
 
 <p align="center">
