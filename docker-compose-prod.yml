@@ -1,0 +1,58 @@
+
+services:
+  mongodb:
+    image: mongo:7
+    container_name: mongo
+    restart: unless-stopped
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: admin
+      MONGO_INITDB_DATABASE: notesdb
+    volumes:
+      - mongo-data:/data/db
+    ports:
+      - "27017:27017"
+    healthcheck:
+      test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    networks:
+      - mern-net
+
+  nodejs:
+    build:
+      context: ./backend       
+      dockerfile: Dockerfile 
+    image: smoothcoode/mernbackend
+    container_name: nodeapp
+    restart: unless-stopped
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_HOST=mongodb # Database container name
+
+    depends_on:
+      - mongodb
+    networks:
+      - mern-net
+
+  frontend:
+    build:
+      context: ./frontend
+    image: smoothcoode/mernfrontend:prod
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    networks:
+      - mern-net
+    depends_on:
+      - nodejs
+
+volumes:
+  mongo-data:
+
+networks:
+  mern-net:
+    driver: bridge

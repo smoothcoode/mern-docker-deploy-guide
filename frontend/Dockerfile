@@ -1,0 +1,19 @@
+# Development / Build stage
+FROM node:18-bookworm-slim AS builder
+WORKDIR /app
+COPY package*.json ./
+RUN npm ci
+COPY . .
+# Build with environment variable 
+ARG NEXT_PUBLIC_BG_COLOR="red"
+RUN NEXT_PUBLIC_BG_COLOR=${NEXT_PUBLIC_BG_COLOR}   npm run build
+ 
+
+# Stage 3: run
+FROM node:18-bookworm-slim AS Final
+WORKDIR /app
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./
+CMD ["npm", "run", "start"]
