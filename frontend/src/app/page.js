@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const API_HOST = process.env.NEXT_PUBLIC_BACKEND_HOST;
+const API_HOST = process.env.NEXT_PUBLIC_BACKEND_HOST ||  "http://localhost:5000";
 const BG_COLOR = process.env.NEXT_PUBLIC_BG_COLOR || "#f5f5f5";
 
 export default function Home() {
