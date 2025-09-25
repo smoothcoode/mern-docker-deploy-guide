@@ -99,7 +99,7 @@ app.get('/api/notes', async (req, res) => {
   }
   
   try {
-    const notes = await Note.find();
+    const notes = await Note.find().sort({ _id: -1 });
     res.json(notes);
   } catch (error) {
     res.status(500).json({ error: error.message });

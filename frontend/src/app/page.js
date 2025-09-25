@@ -24,7 +24,7 @@ export default function Home() {
   const addNote = async () => {
     if (!text.trim()) return; // Don't add empty notes
     const res = await axios.post(`${API_HOST}/api/notes`, { text });
-    setNotes([...notes, res.data]);
+    fetchNotes();
     setText("");
   };
 

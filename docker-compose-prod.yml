@@ -2,7 +2,7 @@
 services:
   mongodb:
     image: mongo:7
-    container_name: mongo
+    container_name: mongodb
     restart: unless-stopped
     environment:
       MONGO_INITDB_ROOT_USERNAME: admin
@@ -10,8 +10,6 @@ services:
       MONGO_INITDB_DATABASE: notesdb
     volumes:
       - mongo-data:/data/db
-    ports:
-      - "27017:27017"
     healthcheck:
       test: ["CMD", "mongo", "--eval", "db.adminCommand('ping')"]
       interval: 10s
@@ -22,16 +20,13 @@ services:
       - mern-net
 
   nodejs:
-    build:
-      context: ./backend       
-      dockerfile: Dockerfile 
-    image: smoothcoode/mernbackend
+    image: smoothcoode/mernbackend:prod 
     container_name: nodeapp
     restart: unless-stopped
     ports:
       - "5000:5000"
     environment:
-      - MONGO_HOST=mongodb # Database container name
+      - MONGO_HOST=mongodb 
 
     depends_on:
       - mongodb
@@ -39,8 +34,6 @@ services:
       - mern-net
 
   frontend:
-    build:
-      context: ./frontend
     image: smoothcoode/mernfrontend:prod
     ports:
       - "3000:3000"

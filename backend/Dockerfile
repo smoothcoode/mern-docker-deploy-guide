@@ -15,6 +15,4 @@ COPY --from=build /app/node_modules ./node_modules
 COPY . .
 USER app
 EXPOSE 5000
-ENV PORT=5000 
-ENV MONGO_HOST=mongodb    
 CMD ["node", "server.js"]
