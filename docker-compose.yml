@@ -25,7 +25,7 @@ services:
     build:
       context: ./backend       
       dockerfile: Dockerfile 
-    image: smoothcoode/mernbackend
+    image: smoothcoode/mernbackend #Change this to your username/imagename
     container_name: nodeapp
     restart: unless-stopped
     ports:
@@ -41,7 +41,7 @@ services:
   frontend:
     build:
       context: ./frontend
-    image: smoothcoode/mernfrontend
+    image: smoothcoode/mernfrontend #Change this to your username/imagename
     ports:
       - "3000:3000"
     restart: unless-stopped

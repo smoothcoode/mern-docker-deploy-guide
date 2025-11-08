@@ -20,7 +20,7 @@ services:
       - mern-net
 
   nodejs:
-    image: smoothcoode/mernbackend:prod 
+    image: smoothcoode/mernbackend:prod  #Change this to your username/imagename:tag
     container_name: nodeapp
     restart: unless-stopped
     ports:
@@ -34,7 +34,7 @@ services:
       - mern-net
 
   frontend:
-    image: smoothcoode/mernfrontend:prod
+    image: smoothcoode/mernfrontend:prod #Change this to your username/imagename:tag
     ports:
       - "3000:3000"
     restart: unless-stopped
